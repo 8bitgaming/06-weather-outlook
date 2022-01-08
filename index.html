@@ -5,30 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Weather Forecast</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
 
     <header>
-        <h1 class="is-size-1 has-text-centered is-family-sans-serif has-background-info">Your Weather Forecast</h1>
+        <h1 class="w3-container w3-center w3-indigo">Your Weather Forecast</h1>
     </header>
 
-    <div class="columns">
-        <article class="column is-one-third" id="search">
-            <h2>Search for a City:</h2>    
+    <div class="w3-row">
+        <article class="w3-container w3-col m4 l3" id="search">
+  
+            
+            <form class="w3-container">
+            <label><h3>Search for a City:</h3></label>
+            <input class="w3-input w3-border w3-round w3-light-grey" type="text">
+            </form>
+
         </article>
 
-        <article id="todays-forcast">
+        <div class="w3-container w3-col m8 l9">
 
-        </article>
+            <article class="w3-container w3-border" id="todays-forecast">
+            </article>
 
-        <article>
-            <h2>5-Day Forecast</h2>
-        </article>
+            <article class="w3-container" id="5-day-forecast">
+                <h4>5-Day Forecast</h4>
+            </article>
 
-
-
+        </div>
 
     </div>
 
@@ -36,7 +42,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
