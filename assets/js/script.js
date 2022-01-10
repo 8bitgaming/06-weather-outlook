@@ -1,9 +1,11 @@
-//setup github secret to store/use apikey
+//need to setup github secret to store/use apikey
 let apiKey = 'fbf31d182481f35e3b9fc07c433c4e62'
 let pastSearch = []
 
 //initial call to get city name and coordinates for use by the getWeather api call
 const getCityLatLong = (city) => {
+  
+  console.log(city)
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units&appid=${apiKey}`
 
   fetch(apiURL).then(function(response) {
@@ -12,6 +14,7 @@ const getCityLatLong = (city) => {
         let cityLat = data.coord.lat
         let cityLong = data.coord.lon
         let cityName = data.name
+        console.log(cityLat, cityLong, cityName)
         getWeather(cityLat, cityLong, cityName);
       })
     } else {
@@ -23,8 +26,7 @@ const getCityLatLong = (city) => {
 //gets all weather data and displays on the page
 const getWeather = (cityLat, cityLong, cityName) => {
     if (cityLat && cityLong) {
-        
-      let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLong}&units=imperial&exclude=hourly,minutely,alerts&appid=${apiKey}`
+            let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLong}&units=imperial&exclude=hourly,minutely,alerts&appid=${apiKey}`
 
         fetch(apiURL).then(function(response) {
             if (response.ok){
@@ -72,8 +74,29 @@ const getWeather = (cityLat, cityLong, cityName) => {
     }    
   }
 
-  //create event listener for search
+//   // create event listener for search
+  $("#search-button").on("click", function(e){
+    e.preventDefault()
+    city = $("#search-box").val()
+    // pastSearch.push(city)
+    // localStorage.setItem(pastSearch)
+    // displayPastCities()
+    getCityLatLong(city)
+  });
 
-  //create history of past searches and store to local storage
+//   //display list of past searches
+//   const displayPastCities = () => {
+    
+//     //check and load from local storage instead of array
+//   if (pastSearch.length > 0) {
+//     for (i=0; i < pastSearch.length; i++) {
+//     let previousCity = document.createElement("button")
+//     previousCity.id = `"past-city"${[i]}`
+//     previousCity.addClass("w3-button w3-light-blue w3-round")
+//     $("#past-cities").append(previousCity)
+//     }
+//   }
+//   return
+// }
 
-getCityLatLong("Minneapolis")
+// getCityLatLong("Minneapolis")

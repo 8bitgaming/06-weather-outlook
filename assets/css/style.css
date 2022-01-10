@@ -5,3 +5,11 @@ h3 {
 h4 {
     font-weight: bold;
 }
+
+#search-button {
+    width: 100%;
+}
+
+.w3-card {
+    margin: 1%;
+}

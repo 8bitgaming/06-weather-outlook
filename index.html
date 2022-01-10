@@ -20,7 +20,10 @@
             
             <form class="w3-container">
             <label><h3>Search for a City:</h3></label>
-            <input class="w3-input w3-border w3-round w3-light-grey" type="text">
+            <input class="w3-input w3-border w3-round w3-light-grey w3-margin-bottom" type="text" id="search-box">
+            <button class="w3-button w3-light-blue w3-round" id="search-button">Search</button>
+            <div class="w3-bottombar w3-padding"></div>
+            <div id="past-cities"></div>
             </form>
 
         </article>
@@ -35,14 +38,14 @@
                 <p id="current-uv">UV Index: <span class="w3-padding-small w3-round" id="current-uv-value"></span></p>
             </article>
 
-            <article class="w3-container">
+            <article class="">
                 <h4>5-Day Forecast</h4>
                 <div class="w3-row" id="five-day-forecast">
-                    <div class="w3-card w3-col m4 l2 w3-blue" id="day0"></div>
-                    <div class="w3-card w3-col m4 l2 w3-blue" id="day1"></div>
-                    <div class="w3-card w3-col m4 l2 w3-blue" id="day2"></div>
-                    <div class="w3-card w3-col m4 l2 w3-blue" id="day3"></div>
-                    <div class="w3-card w3-col m4 l2 w3-blue" id="day4"></div>
+                    <div class="w3-card w3-col m4 l2 w3-light-blue w3-round w3-container" id="day0"></div>
+                    <div class="w3-card w3-col m4 l2 w3-light-blue w3-round w3-container" id="day1"></div>
+                    <div class="w3-card w3-col m4 l2 w3-light-blue w3-round w3-container" id="day2"></div>
+                    <div class="w3-card w3-col m4 l2 w3-light-blue w3-round w3-container" id="day3"></div>
+                    <div class="w3-card w3-col m4 l2 w3-light-blue w3-round w3-container" id="day4"></div>
                 </div>
             </article>
 
