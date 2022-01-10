@@ -1,5 +1,5 @@
 //need to setup github secret to store/use apikey
-
+let apiKey = 'fbf31d182481f35e3b9fc07c433c4e62'
 let pastSearch = []
 
 //initial call to get city name and coordinates for use by the getWeather api call
