@@ -93,8 +93,8 @@ const getWeather = (cityLat, cityLong, cityName) => {
     for (let i=0; i < pastSearch.length; i++) {
       let previousCity = document.createElement("button")
       previousCity.id = "past-city"+[i]
-      $("#past-city"+[i]).addClass("w3-button w3-light-blue w3-round")
-      $("#past-city"+[i]).text(pastSearch[i])
+      previousCity.classList.add("w3-button", "w3-light-blue", "w3-round")
+      previousCity.text(pastSearch[i])
       $("#past-cities").append(previousCity)
     }
   return
