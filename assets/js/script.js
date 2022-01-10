@@ -1,11 +1,11 @@
 //need to setup github secret to store/use apikey
 let apiKey = 'fbf31d182481f35e3b9fc07c433c4e62'
 let pastSearch = []
+let pastCities = {}
 
 //initial call to get city name and coordinates for use by the getWeather api call
 const getCityLatLong = (city) => {
-  
-  console.log(city)
+
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units&appid=${apiKey}`
 
   fetch(apiURL).then(function(response) {
@@ -14,7 +14,6 @@ const getCityLatLong = (city) => {
         let cityLat = data.coord.lat
         let cityLong = data.coord.lon
         let cityName = data.name
-        console.log(cityLat, cityLong, cityName)
         getWeather(cityLat, cityLong, cityName);
       })
     } else {
@@ -35,7 +34,7 @@ const getWeather = (cityLat, cityLong, cityName) => {
                 //Update the header information for the current day
                 let currentDay = moment().format('L')
                 // let weatherIcon = data.current.weather[0].icon;
-                //http://openweathermap.org/img/wn/10d@2x.png
+                //create img element and set src attribute `http://openweathermap.org/img/wn/${value}@2x.png` then append to header
                 $("#current-day-header").text(`${cityName} (${currentDay})`)
                 
                 //create the current day weather info
@@ -78,25 +77,26 @@ const getWeather = (cityLat, cityLong, cityName) => {
   $("#search-button").on("click", function(e){
     e.preventDefault()
     city = $("#search-box").val()
-    // pastSearch.push(city)
-    // localStorage.setItem(pastSearch)
-    // displayPastCities()
+    pastSearch.push(city)
+    displayPastCities()
     getCityLatLong(city)
   });
 
-//   //display list of past searches
-//   const displayPastCities = () => {
-    
-//     //check and load from local storage instead of array
-//   if (pastSearch.length > 0) {
-//     for (i=0; i < pastSearch.length; i++) {
-//     let previousCity = document.createElement("button")
-//     previousCity.id = `"past-city"${[i]}`
-//     previousCity.addClass("w3-button w3-light-blue w3-round")
-//     $("#past-cities").append(previousCity)
-//     }
-//   }
-//   return
-// }
+//display list of past searches
+  const displayPastCities = () => {
+    for (let i = 0; i < pastSearch.length; i++){
+      localStorage.setItem("pastCities", JSON.stringify(pastSearch));
+    }
+    // update array from local storage (race condition? A: no, saving to local storage is blocking/syncronous API)
+    pastSearch = JSON.parse(localStorage.getItem("pastCities"));
+    console.log(pastSearch)
+    for (let i=0; i < pastSearch.length; i++) {
+      let previousCity = document.createElement("button")
+      previousCity.id = "past-city"+[i]
+      $("#past-city"+[i]).addClass("w3-button w3-light-blue w3-round")
+      $("#past-city"+[i]).text(pastSearch[i])
+      $("#past-cities").append(previousCity)
+    }
+  return
+}
 
-// getCityLatLong("Minneapolis")
