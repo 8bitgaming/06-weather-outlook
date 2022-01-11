@@ -2,6 +2,9 @@
 let apiKey = 'fbf31d182481f35e3b9fc07c433c4e62'
 let pastSearch = []
 let pastCities = {}
+pastSearch = JSON.parse(localStorage.getItem("pastCities"));
+
+
 
 //initial call to get city name and coordinates for use by the getWeather api call
 const getCityLatLong = (city) => {
@@ -89,12 +92,12 @@ const getWeather = (cityLat, cityLong, cityName) => {
     }
     // update array from local storage (race condition? A: no, saving to local storage is blocking/syncronous API)
     pastSearch = JSON.parse(localStorage.getItem("pastCities"));
-    console.log(pastSearch)
+    
     for (let i=0; i < pastSearch.length; i++) {
       let previousCity = document.createElement("button")
       previousCity.id = "past-city"+[i]
-      previousCity.classList.add("w3-button", "w3-light-blue", "w3-round")
-      previousCity.text(pastSearch[i])
+      previousCity.classList.add("w3-button", "w3-gray", "w3-round", "past-city")
+      previousCity.textContent = pastSearch[i]
       $("#past-cities").append(previousCity)
     }
   return
