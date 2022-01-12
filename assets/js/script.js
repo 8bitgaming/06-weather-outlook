@@ -13,7 +13,7 @@ for (let i = 0; i < pastSearch.length; i++) {
   $("#past-cities").append(previousCity)
 }
 
-210
+
 //initial call to get city name and coordinates for use by the getWeather api call
 const getCityLatLong = (city) => {
 
@@ -41,10 +41,9 @@ const getWeather = (cityLat, cityLong, cityName) => {
     fetch(apiURL).then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data)
 
           //Update the header information for the current day
-          let currentDay = moment().format('L')
+          let currentDay = moment.unix(data.current.dt).format('L')
           let weatherIcon = data.current.weather[0].icon;
           let icon = document.createElement("img")
           icon.setAttribute("src",`http://openweathermap.org/img/wn/${weatherIcon}.png`)
@@ -62,7 +61,7 @@ const getWeather = (cityLat, cityLong, cityName) => {
 
           let uv = data.current.uvi
           let uvBox = $("#current-uv-value")
-          uvBox.text(uv)
+          uvBox.text(`UV Index: ${uv}`)
 
           if (uv < 4) {
             uvBox.addClass("w3-green")
@@ -70,6 +69,32 @@ const getWeather = (cityLat, cityLong, cityName) => {
             uvBox.addClass("w3-red")
           } else {
             uvBox.addClass("w3-yellow")
+          }
+
+          //create the five day weather info
+          for (let i = 1; i < 6; i++) {
+            let fiveForecastDate = moment.unix(data.daily[i].dt).format('L')
+            let fiveTemp = data.daily[i].temp.day;
+            let fiveWind = data.daily[i].wind_speed;
+            let fiveHumidity = data.daily[i].humidity;
+            let fiveIcon = data.daily[i].weather[0].icon;
+
+            let forecastIcon = document.createElement("img")
+            forecastIcon.setAttribute("src",`http://openweathermap.org/img/wn/${fiveIcon}.png`)
+
+            let forecastBox = document.createElement("div")
+            forecastBox.id = `weather-day-${[i]}`
+            forecastBox.classList.add("w3-card", "w3-blue")
+            let forecastDate = document.createElement("h4")
+            forecastDate.textContent = fiveForecastDate
+            let forecastTemp = document.createElement("p")
+            forecastTemp.textContent = `Temp: ${fiveTemp}°F`
+            let forecastWind = document.createElement("p")
+            forecastWind.textContent = `Wind: ${fiveWind} MPH`
+            let forecastHumidity = document.createElement("p")
+            forecastHumidity.textContent = `Humidity: ${fiveHumidity}%`
+
+            $("#day"+[i]).append(forecastDate, forecastIcon, forecastTemp, forecastWind, forecastHumidity)
           }
         });
       }
@@ -116,34 +141,3 @@ $(".past-city").on("click", function (e) {
   city = $(this).text()
   getCityLatLong(city)
 });
-
-
-// const getFiveDay = (cityName) => {
-  
-//   if (cityName) {
-//     let apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=${apiKey}`
-
-//     fetch(apiURL).then(function (response) {
-//       if (response.ok) {
-//         response.json().then(function (data) {
-         
-
-//           //create the five day forecast
-//             for (let i = 0; i < data.list.length; i++) {
-//               let forecastDate = data.list[i].dt_txt;
-//               let temp = data.list[i].main.temp;
-//               let wind = data.list[i].wind.speed;
-//               let humidity = data.list[i].main.humidity;
-//               let icon = data.list[i].weather[0].icon;
-//               console.log(forecastDate, temp, wind, humidity, icon)
-//               // let forecastBox = document.createElement("p")
-//               // forecastBox.id = `weather-day-${[i]}`
-//               // forecastBox.addClass("w3-card w3-blue")
-//               // $("#day" + i).text("Day")
-//               // $("#day"+[i]).append()
-//             }
-//           })
-//         }
-//     })
-//   }
-// }
