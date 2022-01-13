@@ -1,3 +1,7 @@
+h1 {
+    font-weight: bold;
+}
+
 h3 {
     font-weight: bold;
 }
@@ -8,6 +12,10 @@ h4 {
 
 #search-button {
     width: 100%;
+}
+
+#current-uv {
+    width: 150px
 }
 
 .w3-card {
